@@ -1,43 +1,58 @@
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:project/dialog2.dart';
 import 'package:project/history.dart';
-import 'page1.dart';
+import 'package:project/utils/OvalRightBorderClipper.dart';
 import 'setting.dart';
 import 'history.dart';
 import 'dialog1.dart';
 import 'dialog2.dart';
 import 'comment.dart';
-class Home extends StatelessWidget{
-  String h=null;
-@override
-  Widget build(BuildContext context){
-    var userAccountsDrawerHeader = new UserAccountsDrawerHeader(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.only(bottomLeft:Radius.circular(20),bottomRight:Radius.circular(20)),
-        color: Colors.blueAccent,
-        
-      ),
-                accountName: Text("Meskerem Abebaw"),
-                accountEmail: Text('0925866216'),
-                currentAccountPicture: CircleAvatar(backgroundColor:Colors.white,
-                child:Image.asset('images/i1.jpg',width: 50,)),
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
 
-              );
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Home'),
-        backgroundColor: Colors.blueAccent,
-        elevation: 15,
-        
-        ),
-        drawer: Drawer(
-          child: ListView(
-            children:<Widget>[
-              userAccountsDrawerHeader,
-              
-              ListTile(
+class _HomeState extends State<Home> {
+  
+    Widget StylishDrawer(){
+      return ClipPath(
+        clipper:OvalRightBorderClipper(),
+        child: Container(
+          width: 300,
+          child: Stack(
+            children: <Widget>[
+              BackdropFilter(filter: ImageFilter.blur(sigmaX:5.0, sigmaY: 5.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.lightBlue.withOpacity(0.5),
+                )
+
+              ),
+              ),
+              Container(
+                child: ListView(
+                  children: <Widget>[
+                    Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                            width: 100,
+                            height: 100,
+                            child: CircleAvatar(backgroundImage: AssetImage('images/i1.jpg'),
+                            )
+                          ),
+                        ),
+                        Text("xyz",style: TextStyle(color: Colors.white),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 60),
+                    Divider(height: 0.5, color:Colors.black54,),
+                    ListTile(
                 title: Text('Home'),
                 leading: Icon(Icons.home),
                 onTap: (){Navigator.of(context).pop();
@@ -115,10 +130,28 @@ class Home extends StatelessWidget{
                 },
               ),
 
-            ]
-          ),
+                   
+                  ]
+                )
+
+              ),
+            ],
+          )
+        )
+      );
+
+    }
+  @override
+  Widget build(BuildContext context) {
+      return Scaffold(
+          drawer: StylishDrawer(),
+      appBar: AppBar(
+        title: Text('Home'),
+        backgroundColor: Colors.blueAccent,
+        elevation: 15,
+        
         ),
-        body: Column(
+      body: Column(
          
                 children: <Widget>[
                
@@ -257,5 +290,9 @@ class Home extends StatelessWidget{
           )]))
         ])
         
-    );}}
    
+    
+    );
+   
+  }
+}

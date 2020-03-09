@@ -1,56 +1,54 @@
 import 'package:flutter/material.dart';
+import 'package:flare_flutter/flare_actor.dart';
 import 'page1.dart';
-import 'dart:async';
+//import 'dart:async';
 
 void main() {runApp(MaterialApp(
-  home: MyAPP(),debugShowCheckedModeBanner: false,
+  home: splashscreen(),
 ));}
-class MyAPP extends StatefulWidget {
+class splashscreen extends StatefulWidget {
   @override
-  _MyAPPState createState() => _MyAPPState();
+   splashscreenState createState() =>  splashscreenState();
 }
-
-class _MyAPPState extends State<MyAPP> {
-  @override
-  void initState(){
-    super.initState();
-    Future.delayed(
-      Duration(seconds: 5),
-      (){
-        Navigator.push(
-          context, MaterialPageRoute(builder: (context) =>Page1(),
-          ),
-        );
-      },
-    );
-  }
-  @override
+const brightyellow = Color(0xFFFFD300);
+const darkyellow = Color(0xFFFFB900);
+class  splashscreenState extends State <splashscreen> {
+    @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Container(
-        child: Column(
-          children: <Widget>[
-            Padding( 
-              child:Image.asset("images/tr.PNG",width: 260.0,height: 260.0,alignment: Alignment.center,),
-              padding: EdgeInsets.only(top:110.0,left: 25),
+      backgroundColor: darkyellow.withOpacity(0.6),
+      body: Column(
+        children: [
+          Flexible(
+            flex: 8,
+            child: FlareActor(
+              'images/assets/flare/bus.flr',
+              alignment: Alignment.center,
+              fit: BoxFit.contain,
+              animation: 'driving',
+            ),
+          ),
+          Flexible(
+            flex: 2,
+            child: RaisedButton(
+              color: darkyellow,
+              elevation: 4,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50)),
+              child: Text(
+                'Tap here to proceed',
+                style: TextStyle(color: Colors.black54),
               ),
-            Padding(padding: EdgeInsets.only(top:145.0,left: 25),
-               child: Text('Copyright © 2012E.C All rights reserved',style:TextStyle(
-                      fontSize:12,color:Colors.grey,
-                      
-                    ))
-            )
-          ]
-          
-        )
-        
-        
-  
-      
+              onPressed: (){
+               Navigator.push(
+          context, MaterialPageRoute(builder: (context) =>page1(),
+          ),
+        );
+            },//=>  Navigator.push(context, MaterialPageRoute(builder: (context)=>authentication()))
+            ),
+          ),
+        ],
       ),
-     
-      
     );
   }
-}
+} 
