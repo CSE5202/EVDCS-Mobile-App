@@ -19,6 +19,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flare_flutter: any
+  flutter_swiper: ^1.1.4
+  wave: ^0.0.8
+  font_awesome_flutter: ^8.2.0
+  http: ^0.12.0+4
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -52,6 +57,7 @@ flutter:
     - images/t5.jpg
     - images/t6.jpg
     - images/t7.jpg
+    - images/assets/flare/bus.flr
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
