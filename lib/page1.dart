@@ -1,95 +1,85 @@
 import 'package:flutter/material.dart';
 import 'page2.dart';
-import 'package:wave/config.dart';
-import 'package:wave/wave.dart';
-class page1 extends StatelessWidget {
- 
-   Widget build(BuildContext context)  {
-    return MaterialApp(
-      home:Scaffold(
-        //backgroundColor: Colors.purple.withOpacity(0.5),
-        body: Stack(
+class Page1 extends StatelessWidget{
+   @override
+  Widget build(BuildContext context){
+    return Scaffold(
+    
+      // floatingActionButton: FloatingActionButton(onPressed: (){
+      //Navigator.push(context, new MaterialPageRoute(builder: (context)=>Page2()));
+      //},),
+     backgroundColor: Colors.blueAccent,
+      body: Container(
+        child: Column(
           children: <Widget>[
-            Container(
-              height: 650,
-              child: RotatedBox(quarterTurns: 2,
-              child: WaveWidget(
-                config: CustomConfig( 
-                  gradients: [
-                    [Colors.deepPurple,Colors.blue.shade200],
-                    [Colors.indigo.shade200, Colors.blueAccent.shade200],
-                    ],
-                  durations: [19440,10800], 
-                  heightPercentages:[ 0,20,0,25],
-                  blur: MaskFilter.blur(BlurStyle.solid, 10),
-                  gradientBegin: Alignment.bottomLeft,
-                  gradientEnd: Alignment.topRight
-               
-              ),
-              waveAmplitude: 0,
-              size: Size(
-                double.infinity,
-                double.infinity,
-              ),
+            ClipPath(
+              clipper: Myclipper(),
+              child: Container(
+                height: 320.0,
+                decoration: BoxDecoration(
+                  color:Colors.white,
+                
+              ), 
+              child:Center(
+                child:  Image.asset("images/tr.PNG",width: 200.0,height: 200.0,),
+              )
+             
+              )
+            ),
+            SizedBox(height: 0.0,),
+        Container(width: 200,
+          child: Column(
+            children:<Widget>[
+          
+            TextField(
+              decoration:InputDecoration(
+                hintText:'Phone number',
+                hintStyle: TextStyle(
+                  color:Colors.white70,
+                  fontSize:16.0
+                ),
+                
+                prefixIcon: Icon(Icons.phone),
+                
               ),
             ),
-            ),
-            ListView(children: <Widget>[
-              Container(
-                height:400,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children:<Widget>[
-                    Text("Please insert your phone number to get activation key",textAlign: TextAlign.center,style: TextStyle(color: Colors.white70,fontWeight:FontWeight.bold,fontSize:18.0) ),
-                    Card(
-                      margin: EdgeInsets.only(left: 30, right:30, top: 50),
-                      elevation: 11,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(40))),
-                      child: TextField(
-                        decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.phone, color: Colors.black26,),
-                          hintText: "phone no",
-                          hintStyle: TextStyle( 
-                            color: Colors.black26,
-                          ),
-                          filled: true,
-                          fillColor: Colors.white,
-                          border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(40.0)),
-                          borderSide: BorderSide.none),
-                          contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0)
 
-                        ),
-                      )
-                    ),
-                    Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.all(30.0),
-                      child: RaisedButton(
-                        onPressed: (){
+            SizedBox(height: 25.0,),
+            RaisedButton(onPressed: (){
                Navigator.push(
-          context, MaterialPageRoute(builder: (context) =>page2()
+          context, MaterialPageRoute(builder: (context) =>Page2(),
           ),
         );
             },
-                        padding: EdgeInsets.symmetric(vertical: 16.0),
-                      color: Colors.white70,
-                      elevation: 11,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(40.0))),
-                    child: Text("send", style: TextStyle(color: Colors.white70),),                    
-                    ),
-                    ),
-
-                  ],
-                ),
-
-              )
-             
-          ],
-        )
-       ]
-      ),
-  ));
+            splashColor: Colors.orangeAccent,
+            color: Colors.white,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+            child: Text("Send",style:TextStyle(
+              fontSize:18,color:Colors.blueAccent,fontWeight: FontWeight.w400
+            )),
+          )])
+            )
+          ]
+        ),
+      )
+    );
+}}
+class Myclipper extends CustomClipper<Path>{
+  @override
+  getClip(Size size) {
+    var path= new Path();
+    path.lineTo(0, size.height-150);
+    var controlpoint= Offset(50, size.height-70);
+    var endpoint= Offset(size.width/2, size.height-70);
+    path.quadraticBezierTo(controlpoint.dx, controlpoint.dy, endpoint.dx, endpoint.dy);
+    path.lineTo(size.width, size.height-70);
+    path.lineTo(size.width, 0);
+    return path;
   }
 
-  
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) {
+    // TODO: implement shouldReclip
+    return true;
+  }
 }
