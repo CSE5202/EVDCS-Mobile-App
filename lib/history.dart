@@ -9,6 +9,9 @@ class History extends StatelessWidget{
       child: Scaffold(
       appBar: AppBar(
         title:Text('History',),
+        leading: IconButton(icon: Icon(Icons.arrow_back), onPressed: (){
+            Navigator.pop(context);
+        }),
         bottom: TabBar(isScrollable: true,
           tabs: choices.map<Widget>((Choice choice){
             return Tab(text:choice.title,
