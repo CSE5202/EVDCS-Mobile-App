@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'page2.dart';
+
 class History extends StatelessWidget{
    @override
   Widget build(BuildContext context){

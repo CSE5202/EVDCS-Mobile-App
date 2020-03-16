@@ -94,7 +94,7 @@ class _HomeState extends State<Home> {
                 title: Text('Setting'),
                 leading: Icon(Icons.settings),
                 onTap: (){Navigator.of(context).pop();
-                  Navigator.of(context).push(MaterialPageRoute(builder:(BuildContext context)=>Setting()));
+                  Navigator.of(context).push(MaterialPageRoute(builder:(BuildContext context)=>ThemeApp()));
                 
                 },
               ),

@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'page1.dart';
+import 'package:provider/provider.dart';
+import 'package:project/theme_manager.dart';
+//import 'package:project/app_themes.dart';
 //import 'dart:async';
 
 void main() {runApp(MaterialApp(
   home: splashscreen(),
 ));}
+
+
 class splashscreen extends StatefulWidget {
   @override
    splashscreenState createState() =>  splashscreenState();
