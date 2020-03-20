@@ -1,7 +1,4 @@
 
-import 'package:sqflite/sqflite.dart';
-import 'dart:async';
-import 'package:project/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:project/dialog2.dart';
 import 'package:project/history.dart';
