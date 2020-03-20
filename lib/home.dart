@@ -1,5 +1,7 @@
-import 'dart:io';
 
+import 'package:sqflite/sqflite.dart';
+import 'dart:async';
+import 'package:project/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:project/dialog2.dart';
 import 'package:project/history.dart';
@@ -9,8 +11,18 @@ import 'history.dart';
 import 'dialog1.dart';
 import 'dialog2.dart';
 import 'comment.dart';
+import 'package:project/utils/database_helper.dart';
+import 'dart:io';
+User user;
+var profilemaplist;
+
+int count5;
+ String h=null;
+  final dbHelper = DatabaseHelper.instance;
+ 
+  int count=0;
 class Home extends StatelessWidget{
-  String h=null;
+ 
 @override
   Widget build(BuildContext context){
     var userAccountsDrawerHeader = new UserAccountsDrawerHeader(
@@ -47,13 +59,21 @@ class Home extends StatelessWidget{
               ),
               Divider(),
               ListTile(
+
                 title: Text('Profile'),
                 leading: Icon(Icons.person),
-                onTap: (){
-                 showDialog(context: context,
-                 builder:(BuildContext context)=>Dialog1( t1: 'Meskerem Abebaw', t2: "Dr/0001/01/12"
-                 , t3: 'Plate no: 21345', t4: 'Subcity: Arada', t5: 'Taxi type: Good', t6: 'Phone: 0925866216', t7: 'Status: Good', t8: 'images/i1.jpg',));
-                },
+                onTap: () {//_insert();
+                getProfileList();
+                //print(u.status);
+                showDialog(context: context,
+                 builder:(BuildContext context)=>Dialog1( t1: profilemaplist[1]['name'],
+                  t2: profilemaplist[1]['userid'],
+                 t3: "Plateno: "+profilemaplist[1]['plateno']
+                 , t4:"Subcity: "+ profilemaplist[1]['subcity'], 
+                 t5: "Phone: "+profilemaplist[1]['phone'],t6:"Taxicode: "+ profilemaplist[1]['taxicode'],
+                 t7:"Status: "+ profilemaplist[1]['status'],t8: "images/i1.jpg",));
+                
+                  },
               ),
               Divider(),
               ListTile(
@@ -223,7 +243,6 @@ class Home extends StatelessWidget{
                        crossAxisAlignment:CrossAxisAlignment.start,
                         
                        children:<Widget>[
-                         
                          Text('Deployment', style: TextStyle(fontSize:18,fontWeight: FontWeight.w600,color: Colors.black54),),
                          
                          Text('Lap 3', style: TextStyle(fontSize:16,fontWeight: FontWeight.w400,color: Colors.grey),),
@@ -255,5 +274,49 @@ class Home extends StatelessWidget{
           )]))
         ])
         
-    );}}
-   
+    );}
+    void _insert() async {
+
+// row to insert
+
+Map<String, dynamic> row = {
+
+DatabaseHelper.col2 : 'Dr/0001/01/12',
+DatabaseHelper.col3 : 'Meskerem Abebaw',
+DatabaseHelper.col4 : '0925866216',
+DatabaseHelper.col5 : 'Arada',
+DatabaseHelper.col6 : '03',
+DatabaseHelper.col7 : '3275AA',
+DatabaseHelper.col8 : 'Good'
+
+};
+
+final id = await dbHelper.insert(row);
+
+print('inserted row id: $id');
+
+}
+  
+
+
+/*void _query(int id) async {
+
+final allRows = await dbHelper.queryAllRows();
+
+
+for(int i=0;i<allRows.length;i++){
+  if(allRows[i]['_id']==id){
+      lis=allRows[i];
+
+
+  
+  }
+  
+}
+}*/}
+   void getProfileList() async{
+           profilemaplist=await dbHelper.queryAllRows();
+          
+          
+        }
+      

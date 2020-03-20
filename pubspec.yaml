@@ -19,6 +19,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  sqflite: ^1.1.7
+  path_provider: ^1.1.2
+  intl: ^0.15.7
   flare_flutter: any
   flutter_swiper: ^1.1.4
   wave: ^0.0.8
